@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import java.awt.*;
+
 import static org.testfx.api.FxAssert.verifyThat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,6 +39,35 @@ public class TippingTests extends ApplicationTest {
         clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
 
         assertEquals("Tippen", mediator.getPrimaryStage().getTitle());
+    }
+
+    @Test
+    public void shouldMarkANumberIfKlickOnIt(){
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
+
+        parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "bt_01"));
+
+        String style = NodeFinder.findeNode(parent, "bt_01").getStyle();
+        assertEquals("-fx-background-color: #00ff00", style );
+    }
+
+    @Test
+    public void shouldUnmarkAMarkedNumberIfKlicked(){
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
+
+        parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "bt_01"));
+        clickOn(NodeFinder.findeNode(parent, "bt_01"));
+
+        String style = NodeFinder.findeNode(parent, "bt_01").getStyle();
+        assertEquals("", style);
     }
 
     private void goToTippMainWindow() {

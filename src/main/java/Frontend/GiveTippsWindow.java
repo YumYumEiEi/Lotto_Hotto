@@ -82,7 +82,11 @@ public class GiveTippsWindow implements GiveTippsFrontend {
         @Override
         public void handle(Event event) {
             Button button = (Button) event.getSource();
-            button.setStyle(GREEN);
+            if(button.getStyle().equals("")){
+                button.setStyle(GREEN);
+            }else{
+                button.setStyle("");
+            }
         }
     }
 }

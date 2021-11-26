@@ -204,13 +204,16 @@ public class GiveTippsWindowController {
         Field[] allFields =  this.getClass().getDeclaredFields();
         Button button = new Button();
         for(Field field : allFields){
-            if(field.getClass().equals(Button.class)){
+            if(field.getType().equals(Button.class)){
                 try {
                     button = (Button) field.get(this);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                button.setOnMouseClicked(numberbuttonHandler);
+                if(!(button.getText().equals("Zurück ")) && !(button.getText().equals("Bestätigen"))){
+                    button.setOnMouseClicked(numberbuttonHandler);
+                }
+
             }
         }
     }

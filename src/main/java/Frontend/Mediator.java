@@ -16,7 +16,6 @@ public class Mediator extends Application {
     private GiveTippsWindow giveTippsWindow;
 
     private Backend backend;
-    //TODO Backend in alle starts einfügen die eine Middelwear haben!
 
     private User activeUser;
 
