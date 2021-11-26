@@ -5,21 +5,21 @@ import javafx.beans.property.StringProperty;
 
 public class User {
     private final StringProperty id;
-    private final StringProperty title;
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final StringProperty username;
     private final StringProperty password;
-    private final StringProperty birthdate;
-    private final StringProperty street;
-    private final StringProperty postcode;
     private final StringProperty city;
+    private final StringProperty postcode;
+    private final StringProperty street;
+    private final StringProperty birthdate;
     private final StringProperty bankAccount;
     private final StringProperty isAdmin;
+    private final StringProperty title;
 
     public User(
-            String id, String title, String firstName, String lastName, String username, String password,
-            String birthdate, String street, String postcode, String city, String bankAccount, String isAdmin
+            String id, String firstName, String lastName,String password, String city, String birthdate,
+            String bankAccount, String isAdmin, String street, String postcode, String username, String title
     ) {
         this.id = new SimpleStringProperty(id);
         this.firstName = new SimpleStringProperty(firstName);
@@ -33,6 +33,11 @@ public class User {
         this.postcode = new SimpleStringProperty(postcode);
         this.username = new SimpleStringProperty(username);
         this.title = new SimpleStringProperty(title);
+    }
+
+    public static User getEmptyUser() {
+        return new User("","", "", "", "", "", "", "", "" ,
+                "", "", "");
     }
 
     public String getId() {
