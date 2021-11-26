@@ -28,7 +28,7 @@ public class TestBackend implements Backend {
     }
 
     @Override
-    public void saveNewUser(User user, Adress adress, BankAccount bankAccount) {
+    public void saveNewUser(User user) {
         allUsers.add(user);
     }
 

@@ -9,7 +9,7 @@ import BackendObjects.Drawing;
 public interface Backend {
     User getUser(String username, String password);
 
-    void saveNewUser(User user, Adress adress, BankAccount bankAccount);
+    void saveNewUser(User user);
 
     boolean isUsernameUnique(String username);
 

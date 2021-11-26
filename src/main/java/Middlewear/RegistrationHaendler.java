@@ -30,7 +30,11 @@ public class RegistrationHaendler extends RegistrationMiddlewear {
         }else if(registerInfo.hasEmptyField()) {
             frontend.showMissingFieldMessage();
         }else{
-            backend.saveNewUser(new User(registerInfo.getUsername(), registerInfo.getPassword()), new Adress(), new BankAccount());
+            backend.saveNewUser(
+                    new User(registerInfo.getTitle(),registerInfo.getFirstName(), registerInfo.getSecondName(),
+                            registerInfo.getUsername(), registerInfo.getPassword(), "registerInfo.getBirthdate",
+                            registerInfo.getStreet(), registerInfo.getPlz(), "registerInfo.getCity", "registerInfo.getBankAccount()",
+                            "registerInfo.getIsAdmin()"));
         }
     }
 

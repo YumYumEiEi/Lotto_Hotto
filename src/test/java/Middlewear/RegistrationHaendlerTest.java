@@ -42,7 +42,7 @@ class RegistrationHaendlerTest {
         testHeandler.heandleAction(testRegistrationInfo);
 
         // Assert
-        verify(backendMock, times(1)).saveNewUser(any(User.class), any(Adress.class), any(BankAccount.class));
+        verify(backendMock, times(1)).saveNewUser(any(User.class));
     }
 
     @Test
