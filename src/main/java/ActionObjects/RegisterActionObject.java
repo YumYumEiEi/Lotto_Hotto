@@ -10,10 +10,10 @@ public class RegisterActionObject implements ActionObject {
     private final String title;
     private final String firstName;
     private final String secondName;
+    private final String birthdate;
     private final String street;
     private final String town;
     private final String plz;
-    private final String bankAccountName;
     private final String iban;
     private final String functionCall;
 
@@ -53,12 +53,12 @@ public class RegisterActionObject implements ActionObject {
         return plz;
     }
 
-    public String getBankAccountName() {
-        return bankAccountName;
-    }
-
     public String getIban() {
         return iban;
+    }
+
+    public String getBirthdate() {
+        return this.birthdate;
     }
 
     @Override
@@ -67,8 +67,7 @@ public class RegisterActionObject implements ActionObject {
     }
 
     public RegisterActionObject(String functionCall, String username, String password, String confirmedPassword, String title, String firstName,
-                                String secondName, String street, String town, String plz, String bankAccountName, String iban,
-                                String bic) {
+                                String secondName, String birthdate, String street, String town, String plz, String iban) {
         this.functionCall = functionCall;
         this.username = username;
         this.password = password;
@@ -76,10 +75,10 @@ public class RegisterActionObject implements ActionObject {
         this.title = title;
         this.firstName = firstName;
         this.secondName = secondName;
+        this.birthdate = birthdate;
         this.street = street;
         this.town = town;
         this.plz = plz;
-        this.bankAccountName= bankAccountName;
         this.iban = iban;
 
     }

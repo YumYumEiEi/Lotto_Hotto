@@ -3,6 +3,8 @@ package Frontend;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+import java.lang.reflect.Field;
+
 public class GiveTippsWindowController {
 
     @FXML
@@ -189,5 +191,27 @@ public class GiveTippsWindowController {
     }
 
     public void showNotSevenNumbersPickedErrorMessage() {
+    }
+
+    public void showSuperzahlNotPickedErrorMessage() {
+    }
+
+    public void addConfirmButtonActionHandler(GiveTippsWindow.ConfirmButtonActionHandler confirmButtonActionHandler) {
+        this.confirmButton.setOnMouseClicked(confirmButtonActionHandler);
+    }
+
+    public void addNumberButtonHandler(GiveTippsWindow.NumberbuttonHandler numberbuttonHandler) {
+        Field[] allFields =  this.getClass().getDeclaredFields();
+        Button button = new Button();
+        for(Field field : allFields){
+            if(field.getClass().equals(Button.class)){
+                try {
+                    button = (Button) field.get(this);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                button.setOnMouseClicked(numberbuttonHandler);
+            }
+        }
     }
 }

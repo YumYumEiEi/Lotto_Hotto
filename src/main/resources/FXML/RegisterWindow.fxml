@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="575.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.RegistrationWindowController">
+<AnchorPane prefHeight="502.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.RegistrationWindowController">
    <children>
       <Label layoutX="10.0" layoutY="140.0" text="Anrede" />
       <ComboBox fx:id="titelComboBox" layoutX="138.0" layoutY="135.0" prefWidth="150.0" />
@@ -14,25 +14,23 @@
       <TextField fx:id="passwordField" layoutX="138.0" layoutY="45.0" />
       <Label layoutX="10.0" layoutY="210.0" text="Nachname" />
       <TextField fx:id="secondPasswordField" layoutX="138.0" layoutY="80.0" />
-      <Label layoutX="10.0" layoutY="265.0" text="Straße" />
-      <Label layoutX="10.0" layoutY="300.0" text="Ort" />
-      <Label layoutX="10.0" layoutY="335.0" text="PLZ" />
-      <Label layoutX="10.0" layoutY="390.0" text="Name" />
-      <Label layoutX="10.0" layoutY="460.0" text="Bic" />
-      <Label layoutX="10.0" layoutY="425.0" text="Iban" />
+      <Label layoutX="10.0" layoutY="280.0" text="Straße" />
+      <Label layoutX="10.0" layoutY="315.0" text="Ort" />
+      <Label layoutX="10.0" layoutY="350.0" text="PLZ" />
+      <Label layoutX="10.0" layoutY="405.0" text="Iban" />
       <Label layoutX="10.0" layoutY="15.0" text="Username" />
       <Label layoutX="10.0" layoutY="50.0" text="Passwort" />
       <Label layoutX="10.0" layoutY="85.0" text="Passwort bestätigen" />
       <TextField fx:id="firstNameField" layoutX="138.0" layoutY="170.0" />
       <TextField fx:id="usernameField" layoutX="138.0" layoutY="10.0" />
       <TextField fx:id="secondNameField" layoutX="138.0" layoutY="205.0" />
-      <TextField fx:id="streetField" layoutX="137.0" layoutY="260.0" />
-      <TextField fx:id="cityField" layoutX="137.0" layoutY="295.0" />
-      <TextField fx:id="plzField" layoutX="137.0" layoutY="330.0" />
-      <TextField fx:id="bancAccountNameField" layoutX="137.0" layoutY="385.0" />
-      <TextField fx:id="ibanField" layoutX="138.0" layoutY="420.0" />
-      <TextField fx:id="bicField" layoutX="137.0" layoutY="455.0" />
-      <Button fx:id="backToLoginButton" layoutX="19.0" layoutY="516.0" mnemonicParsing="false" text="Zurück zum Login" />
-      <Button fx:id="acceptButton" layoutX="185.0" layoutY="516.0" minWidth="111.0" mnemonicParsing="false" text="Bestätigen" />
+      <TextField fx:id="streetField" layoutX="137.0" layoutY="276.0" />
+      <TextField fx:id="cityField" layoutX="137.0" layoutY="311.0" />
+      <TextField fx:id="plzField" layoutX="137.0" layoutY="346.0" />
+      <TextField fx:id="ibanField" layoutX="138.0" layoutY="401.0" />
+      <Button fx:id="backToLoginButton" layoutX="14.0" layoutY="454.0" mnemonicParsing="false" text="Zurück zum Login" />
+      <Button fx:id="acceptButton" layoutX="180.0" layoutY="454.0" minWidth="111.0" mnemonicParsing="false" text="Bestätigen" />
+      <Label layoutX="10.0" layoutY="245.0" text="Geburtstag" />
+      <TextField fx:id="birthdateTextField" layoutX="137.0" layoutY="241.0" />
    </children>
 </AnchorPane>

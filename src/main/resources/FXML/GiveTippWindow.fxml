@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="356.0" prefWidth="354.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.GiveTippWindow">
+<AnchorPane prefHeight="356.0" prefWidth="354.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.GiveTippsWindowController">
    <children>
       <Button fx:id="bt_01" layoutX="33.0" layoutY="40.0" mnemonicParsing="false" prefWidth="29.0" text="1" />
       <Button fx:id="bt_02" layoutX="62.0" layoutY="40.0" mnemonicParsing="false" prefWidth="29.0" text="2" />

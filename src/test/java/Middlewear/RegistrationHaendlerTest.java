@@ -35,20 +35,24 @@ class RegistrationHaendlerTest {
     @Test
     public void shouldRegsterTheUserIfTheUsernameIsUniqueAndPasswordIsTwoTimesTheSame(){
         // Setup
-        RegisterActionObject testRegistrationInfo = generateRegisterActionObject();
+        RegisterActionObject testRegistrationInfo = new RegisterActionObject("register",  "SusiBusi", "1234wasd",
+                "1234wasd", "Frau", "Susi", "Schneider", "07.08.2013",  "Friedrichstraße 65",
+                "Berlin", "12456", "DE983746627381000023");
         uniqueUsername(true);
 
         // Test
         testHeandler.heandleAction(testRegistrationInfo);
 
         // Assert
-        verify(backendMock, times(1)).saveNewUser(any(User.class), any(Adress.class), any(BankAccount.class));
+        verify(backendMock, times(1)).saveNewUser(any(User.class));
     }
 
     @Test
     public void shouldShowErrorMessageIfUsernameAlreadyUsed(){
         // Setup
-        RegisterActionObject testRegistrationInfo = generateRegisterActionObject();
+        RegisterActionObject testRegistrationInfo = new RegisterActionObject("register",  "SusiBusi", "1234wasd",
+                "1234wasd", "Frau", "Susi", "Schneider", "07.08.1913",  "Friedrichstraße 65",
+                "Berlin", "12456", "DE983746627381000023");;
         uniqueUsername(false);
 
         // Test
@@ -62,8 +66,8 @@ class RegistrationHaendlerTest {
     public void shouldShowErrorMessageIfPasswordIsDifferent(){
         // Setup
         RegisterActionObject testRegistrationInfo = new RegisterActionObject("register", "SusiBusi", "1234wasd",
-                "1234wasf", "Frau", "Susi", "Schneider", "Friedrichstraße 65",
-                "Berlin", "12456", "Susi Schneider", "DE983746627381000023", "Was weiß ich ");
+                "1234wasf", "Frau", "Susi", "Schneider", "04.05.1454",  "Friedrichstraße 65",
+                "Berlin", "12456", "DE983746627381000023");
         uniqueUsername(true);
 
         // Test
@@ -77,8 +81,8 @@ class RegistrationHaendlerTest {
     public void shouldShowErrorMessageIfFieldsAreEmpty(){
         // Setup
         RegisterActionObject testRegistrationInfo = new RegisterActionObject("register", "SusiBusi", "1234wasd",
-                "1234wasd", "Frau", "Susi", "", "Friedrichstraße 65",
-                "Berlin", "12456", "Susi Schneider", "DE983746627381000023", "Was weiß ich ");
+                "1234wasd", "Frau", "Susi", "", "",  "Friedrichstraße 65",
+                "Berlin", "12456", "DE983746627381000023");
         uniqueUsername(true);
 
         // Test
@@ -88,15 +92,8 @@ class RegistrationHaendlerTest {
         verify(frontendMock, times(1)).showMissingFieldMessage();
     }
 
-
-    private RegisterActionObject generateRegisterActionObject(){
-        return new RegisterActionObject("register", "SusiBusi", "1234wasd",
-                "1234wasd", "Frau", "Susi", "Schneider", "Friedrichstraße 65",
-                "Berlin", "12456", "Susi Schneider", "DE983746627381000023", "Was weiß ich ");
-    }
-
     private void uniqueUsername(boolean uniqueUsername){
-        when(backendMock.isUsernameUnique("SusiBusi")).thenReturn(uniqueUsername);
+        when(backendMock.isUsernameUnique(any(String.class))).thenReturn(uniqueUsername);
     }
 
 

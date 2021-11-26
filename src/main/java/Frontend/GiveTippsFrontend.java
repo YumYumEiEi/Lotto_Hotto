@@ -1,5 +1,7 @@
 package Frontend;
 
+import BackendObjects.User;
+
 public interface GiveTippsFrontend extends FrontendWithController {
 
     void startTippMainWindow();
@@ -9,4 +11,8 @@ public interface GiveTippsFrontend extends FrontendWithController {
     void showTippAlreaddyThereErrorMessage();
 
     void showNotSevenNumbersPickedErrorMessage();
+
+    void showNoSuperzahlPickedErrorMessage();
+
+    User getCurrendUser();
 }

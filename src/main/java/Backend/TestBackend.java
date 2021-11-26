@@ -14,7 +14,9 @@ public class TestBackend implements Backend {
     }
 
     private void initializeUsers() {
-        allUsers.add(new User("Peter", "1234wasd"));
+        allUsers.add(new User ("0", "Herr",  "Peter",
+                "Kalinzki", "1234wasd", "Berlin", "07.08.1994", "3",
+                "false", "Goselstraße 33", "12345", "Peter"));
     }
 
     @Override
@@ -28,7 +30,7 @@ public class TestBackend implements Backend {
     }
 
     @Override
-    public void saveNewUser(User user, Adress adress, BankAccount bankAccount) {
+    public void saveNewUser(User user) {
         allUsers.add(user);
     }
 
@@ -53,8 +55,14 @@ public class TestBackend implements Backend {
     }
 
     @Override
-    public boolean isTippAlreaddyGiven(Tipp givenTipp) {
+    public boolean isTippAlreaddyGiven(Tipp givenTipp, String userID) {
         return false;
+    }
+
+    @Override
+    public String getNextUserID() {
+        String returnValue = "" + allUsers.size();
+        return returnValue;
     }
 
 }

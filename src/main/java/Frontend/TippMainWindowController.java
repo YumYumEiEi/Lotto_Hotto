@@ -14,4 +14,8 @@ public class TippMainWindowController {
     @FXML
     private Button backToMainPageButton;
 
+    public void addGiveTippButtonListener(TippMainWindow.GoToGiveATippButtonHandler goToGiveATippButtonHandler) {
+
+        this.makeATippButton.setOnMouseClicked(goToGiveATippButtonHandler);
+    }
 }

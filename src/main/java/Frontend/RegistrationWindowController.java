@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 
 public class RegistrationWindowController {
 
+
     @FXML
     private ComboBox<String> titelComboBox;
 
@@ -36,19 +37,16 @@ public class RegistrationWindowController {
     private TextField plzField;
 
     @FXML
-    private TextField bancAccountNameField;
-
-    @FXML
     private TextField ibanField;
-
-    @FXML
-    private TextField bicField;
 
     @FXML
     private Button backToLoginButton;
 
     @FXML
     private Button acceptButton;
+
+    @FXML
+    private TextField birthdateTextField;
 
     public void setBackToLoginHandler(RegistrationWindow.BackToLoginButtonHandler backToLoginButtonHandler) {
         this.backToLoginButton.setOnMouseClicked(backToLoginButtonHandler);
@@ -114,17 +112,14 @@ public class RegistrationWindowController {
         return this.plzField.getText();
     }
 
-    public String getBankAccountName() {
-        return this.bancAccountNameField.getText();
-    }
-
     public String getIban() {
         return this.ibanField.getText();
     }
 
-    public String getBic() {
-        return this.bicField.getText();
+    public String getBirthdate() {
+        return this.birthdateTextField.getText();
     }
+
 
     public void showMissingFieldErrorMessage() {
         Alert missingField = new Alert(Alert.AlertType.INFORMATION);

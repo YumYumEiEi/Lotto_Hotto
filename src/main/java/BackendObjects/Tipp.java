@@ -15,4 +15,12 @@ public class Tipp {
         this.username = username;
         this.zeihung = zeihung;
     }
+
+    public String[] getTippedNumbers() {
+        return this.allTippedNumbers;
+    }
+
+    public String getSuperzahl() {
+        return this.superzahl;
+    }
 }

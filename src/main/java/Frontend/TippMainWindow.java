@@ -2,6 +2,8 @@ package Frontend;
 
 import ActionObjects.ActionObject;
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,15 +18,32 @@ public class TippMainWindow extends Application implements TippMainFrontend {
         this.mediator = mediator;
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/TippMainWindow.fxml"));
         Parent root = loader.load();
-        stage.setTitle("Lotto Hotto");
-        stage.setScene(new Scene(root, 500, 230));
+        stage.setTitle("Tipp Main");
+        stage.setScene(new Scene(root, 370, 430));
         stage.show();
 
         controller = loader.getController();
+        controller.addGiveTippButtonListener(new GoToGiveATippButtonHandler());
+    }
+
+    private void startGiveATippWindow(){
+        try {
+            mediator.startGiveTippWindow();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void start(Stage stage) throws Exception {
 
+    }
+
+    public class GoToGiveATippButtonHandler implements EventHandler {
+
+        @Override
+        public void handle(Event event) {
+            startGiveATippWindow();
+        }
     }
 }

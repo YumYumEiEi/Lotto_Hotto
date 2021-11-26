@@ -11,7 +11,7 @@ import org.testfx.matcher.base.NodeMatchers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.testfx.api.FxAssert.verifyThat;
 
-public class FrontendTests extends ApplicationTest {
+public class LoginAndRegistarationTests extends ApplicationTest {
     Mediator mediator = new Mediator();
 
     @Override
@@ -22,13 +22,13 @@ public class FrontendTests extends ApplicationTest {
     @Test
     public void shouldOpenMainWindowIfITryToLoginWithExistingAccount(){
         Parent parent = mediator.getScene().getRoot();
-        clickOn(findeNode(parent, "usernameField"));
+        clickOn(NodeFinder.findeNode(parent, "usernameField"));
         write("Peter");
 
-        clickOn(findeNode(parent, "passwordField"));
+        clickOn(NodeFinder.findeNode(parent, "passwordField"));
         write("1234wasd");
 
-        clickOn(findeNode(parent, "loginButton"));
+        clickOn(NodeFinder.findeNode(parent, "loginButton"));
 
         assertEquals(mediator.getPrimaryStage().getTitle(), "Lotto Hotto");
 
@@ -37,13 +37,13 @@ public class FrontendTests extends ApplicationTest {
     @Test
     public void shouldShowUserNotFoundDialogWhenIfLoginFaild(){
         Parent parent = mediator.getScene().getRoot();
-        clickOn(findeNode(parent, "usernameField"));
+        clickOn(NodeFinder.findeNode(parent, "usernameField"));
         write("Susanne");
 
-        clickOn(findeNode(parent, "passwordField"));
+        clickOn(NodeFinder.findeNode(parent, "passwordField"));
         write("1234wasd");
 
-        clickOn(findeNode(parent, "loginButton"));
+        clickOn(NodeFinder.findeNode(parent, "loginButton"));
 
         verifyThat("Benutzer nicht gefunden" , NodeMatchers.isVisible());
     }
@@ -51,7 +51,7 @@ public class FrontendTests extends ApplicationTest {
     @Test
     public void sholdOpenRegisterWindowIfIClickOnTheRegisterButton(){
         Parent parent = mediator.getScene().getRoot();
-        clickOn(findeNode(parent, "registerButton"));
+        clickOn(NodeFinder.findeNode(parent, "registerButton"));
 
         assertEquals(mediator.getPrimaryStage().getTitle(), "Registration");
     }
@@ -59,56 +59,53 @@ public class FrontendTests extends ApplicationTest {
     @Test
     public void shouldRegistrateAUserSoHeCanLogin(){
         Parent parent = mediator.getScene().getRoot();
-        clickOn(findeNode(parent, "registerButton"));
+        clickOn(NodeFinder.findeNode(parent, "registerButton"));
 
         parent = mediator.getScene().getRoot();
-        clickOn(findeNode(parent, "usernameField"));
+        clickOn(NodeFinder.findeNode(parent, "usernameField"));
         write("Susanne");
 
-        clickOn(findeNode(parent, "passwordField"));
+        clickOn(NodeFinder.findeNode(parent, "passwordField"));
         write("1234wasd");
 
-        clickOn(findeNode(parent, "secondPasswordField"));
+        clickOn(NodeFinder.findeNode(parent, "secondPasswordField"));
         write("1234wasd");
 
-        clickOn(findeNode(parent, "firstNameField" ));
+        clickOn(NodeFinder.findeNode(parent, "firstNameField" ));
         write("Susanne");
 
-        clickOn(findeNode(parent, "secondNameField"));
+        clickOn(NodeFinder.findeNode(parent, "secondNameField"));
         write("Potrokolla");
 
-        clickOn(findeNode(parent, "streetField"));
+        clickOn(NodeFinder.findeNode(parent, "birthdateTextField"));
+        write("07.08.1994");
+
+        clickOn(NodeFinder.findeNode(parent, "streetField"));
         write("Auchsbacher Weg 85");
 
-        clickOn(findeNode(parent, "cityField"));
+        clickOn(NodeFinder.findeNode(parent, "cityField"));
         write("Berlin");
 
-        clickOn(findeNode(parent, "plzField"));
+        clickOn(NodeFinder.findeNode(parent, "plzField"));
         write("12345");
 
-        clickOn(findeNode(parent, "bancAccountNameField"));
-        write("Susanne Potrokolla");
-
-        clickOn(findeNode(parent, "ibanField"));
+        clickOn(NodeFinder.findeNode(parent, "ibanField"));
         write("DE123450000293920");
 
-        clickOn(findeNode(parent, "bicField"));
-        write("Was weiß ich wie ne Bic aussieht");
-
-        clickOn(findeNode(parent, "titelComboBox"));
+        clickOn(NodeFinder.findeNode(parent, "titelComboBox"));
         clickOn("Frau");
 
-        clickOn(findeNode(parent, "acceptButton"));
+        clickOn(NodeFinder.findeNode(parent, "acceptButton"));
 
         parent = mediator.getScene().getRoot();
 
-        clickOn(findeNode(parent, "usernameField"));
+        clickOn(NodeFinder.findeNode(parent, "usernameField"));
         write("Susanne");
 
-        clickOn(findeNode(parent, "passwordField"));
+        clickOn(NodeFinder.findeNode(parent, "passwordField"));
         write("1234wasd");
 
-        clickOn(findeNode(parent, "loginButton"));
+        clickOn(NodeFinder.findeNode(parent, "loginButton"));
 
         assertEquals( "Lotto Hotto", mediator.getPrimaryStage().getTitle());
 
@@ -116,15 +113,5 @@ public class FrontendTests extends ApplicationTest {
 
 
 
-    private Node findeNode(Parent parent, String id){
-        Node foundNode = null;
-        for(Node node : parent.getChildrenUnmodifiable()){
-            if(node.getId() != null){
-                if(node.getId().equals(id)){
-                    foundNode = node;
-                }
-            }
-        }
-        return foundNode;
-    }
+
 }

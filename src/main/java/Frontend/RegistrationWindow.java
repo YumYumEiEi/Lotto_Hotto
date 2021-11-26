@@ -86,12 +86,11 @@ public class RegistrationWindow extends Application implements RegistrationFront
                             controller.getTitel(),
                             controller.getFirstName(),
                             controller.getLastName(),
+                            controller.getBirthdate(),
                             controller.getStreet(),
                             controller.getTown(),
                             controller.getPlz(),
-                            controller.getBankAccountName(),
-                            controller.getIban(),
-                            controller.getBic()
+                            controller.getIban()
                             );
             actionPerformed(action);
             startLogin();

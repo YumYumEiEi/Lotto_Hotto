@@ -31,7 +31,9 @@ class LoginHeandlerTest {
     @Test
     public void shouldStartSwitchingToTheMainWindowIfLoggindataIsCorrect(){
         // Setup
-        when(backendMock.getUser("Peter", "1234wasd")).thenReturn(new User("Peter", "1234wasd"));
+        when(backendMock.getUser("Peter", "1234wasd")).thenReturn(new User("0", "Herr",  "Peter",
+                "Kalinzki", "1234wasd", "Berlin", "07.08.1994", "3",
+                "false", "Goselstraße 33", "12345", "Peter"));
         LoginActionObject testAction = new LoginActionObject("login", "Peter", "1234wasd");
 
         // Test

@@ -30,13 +30,13 @@ class GiveTippsHandlerTest {
     }
 
     @Test
-    public void shouldSaveTheTippIfEverythingIsCorrect(){
+    public void shouldSaveTheTippIfEverythingIsbCorrect(){
         //Setup
-        User currendUser = new User("Peter", "1234wasd");
         String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "35", "46"};
 
-        TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", currendUser);
+        TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", User.getEmptyUser());
 
+        when(mockBackend.isTippAlreaddyGiven(any(Tipp.class), any(String.class))).thenReturn(false);
         when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0"));
 
         //Test
@@ -49,13 +49,12 @@ class GiveTippsHandlerTest {
     @Test
     public void shouldShowAnErrorMessageIfTheCurrendUserAlreadyGaveTheExactSameTippForThisDrawing(){
         //Setup
-        User currendUser = new User("Peter", "1234wasd");
         String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "35", "46"};
 
-        TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", currendUser);
+        TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", User.getEmptyUser());
 
         when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0"));
-        when(mockBackend.isTippAlreaddyGiven(any(Tipp.class))).thenReturn(true);
+        when(mockBackend.isTippAlreaddyGiven(any(Tipp.class), any(String.class))).thenReturn(true);
 
         //Test
         testHandler.heandleAction(testTipp);
@@ -68,10 +67,9 @@ class GiveTippsHandlerTest {
     @Test
     public void shouldShowAnErrorMessageIfThereAreNotSevenNumbersTipped(){
         //Setup
-        User currendUser = new User("Peter", "1234wasd");
         String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "46"};
 
-        TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", currendUser);
+        TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", User.getEmptyUser());
 
         when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0"));
 

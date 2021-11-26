@@ -19,7 +19,7 @@ public class MainWindow extends Application implements MainFrontend {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/MainWindow.fxml"));
         Parent root = loader.load();
         stage.setTitle("Lotto Hotto");
-        stage.setScene(new Scene(root, 500, 230));
+        stage.setScene(new Scene(root, 640, 760));
         stage.show();
 
         controller = loader.getController();

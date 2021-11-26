@@ -13,6 +13,7 @@ public class Mediator extends Application {
     private RegistrationWindow registrationWindow;
     private MainWindow mainWindow;
     private TippMainWindow tippMainWindow;
+    private GiveTippsWindow giveTippsWindow;
 
     private Backend backend;
     //TODO Backend in alle starts einfügen die eine Middelwear haben!
@@ -25,6 +26,7 @@ public class Mediator extends Application {
         registrationWindow = new RegistrationWindow();
         mainWindow = new MainWindow();
         tippMainWindow = new TippMainWindow();
+        giveTippsWindow = new GiveTippsWindow();
 
         backend = new TestBackend();
 
@@ -68,6 +70,13 @@ public class Mediator extends Application {
             tippMainWindow.start(primaryStage, this);
         }
     }
+
+    public void startGiveTippWindow()throws Exception{
+        if(activeUser != null){
+            giveTippsWindow.start(primaryStage, this);
+        }
+    }
+
     public User getActiveUser() {
         return activeUser;
     }
@@ -89,4 +98,5 @@ public class Mediator extends Application {
     public Backend getBackend() {
         return this.backend;
     }
+
 }

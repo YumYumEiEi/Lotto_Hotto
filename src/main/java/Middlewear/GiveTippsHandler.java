@@ -15,43 +15,53 @@ public class GiveTippsHandler extends GiveTippsMiddlewear {
     }
 
     @Override
-    protected boolean isTippLegal() {
-        return false;
+    protected boolean isTippLegal(Tipp givenTipp, String userID) {
+        return areSevenNumbersPicked(givenTipp) && isOneSuperzahlPicked(givenTipp) && isTippADuplicat(givenTipp, userID);
     }
 
     @Override
-    protected boolean areSevenNumbersPicked() {
-        return false;
+    protected boolean areSevenNumbersPicked(Tipp givenTipp) {
+        if(givenTipp.getTippedNumbers().length == 7){
+            return true;
+        }else{
+            frontend.showNotSevenNumbersPickedErrorMessage();
+            return false;
+        }
     }
 
     @Override
-    protected boolean isOneSuperzahlPicked() {
-        return false;
+    protected boolean isOneSuperzahlPicked(Tipp givenTipp) {
+        if(givenTipp.getSuperzahl().equals("")){
+            frontend.showNoSuperzahlPickedErrorMessage();
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @Override
-    protected boolean isTippADuplicat() {
-        return false;
+    protected boolean isTippADuplicat(Tipp givenTipp, String userID) {
+        if(backend.isTippAlreaddyGiven(givenTipp, userID )){
+            frontend.showTippAlreaddyThereErrorMessage();
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @Override
     protected void giveTipp(TippActionObject performedAction) {
-        String username = performedAction.getCurrendUsername();
+        String userID = performedAction.getUserID();
         String[] tippedNumbers = performedAction.getTippedNumbers();
         String superzahl  = performedAction.getSuperzahl();
         String nextZiehungID = backend.getNextDrawing().getID();
 
-        if(tippedNumbers.length != 7){
-            frontend.showNotSevenNumbersPickedErrorMessage();
-        }else {
-            Tipp givenTipp = new Tipp(tippedNumbers, superzahl, username, nextZiehungID);
+        Tipp givenTipp = new Tipp(tippedNumbers, superzahl, userID, nextZiehungID);
 
-            if(backend.isTippAlreaddyGiven(givenTipp)){
-                frontend.showTippAlreaddyThereErrorMessage();
-            }else{
-                backend.saveTipp(givenTipp);
-            }
+        if(isTippLegal(givenTipp, userID)){
+            backend.saveTipp(givenTipp);
         }
+
     }
 
     @Override

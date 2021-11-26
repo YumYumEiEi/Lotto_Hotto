@@ -30,5 +30,5 @@ public class TippActionObject implements ActionObject {
         return this.superzahl;
     }
 
-    public String getCurrendUsername() { return  currendUser.getUsername();}
+    public String getUserID() { return  currendUser.getId();}
 }
