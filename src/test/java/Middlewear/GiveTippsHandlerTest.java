@@ -32,12 +32,12 @@ class GiveTippsHandlerTest {
     @Test
     public void shouldSaveTheTippIfEverythingIsCorrect(){
         //Setup
-        User currendUser = new User("Peter", "1234wasd");
+        User currendUser = new User("1","Peter","Mayer","test","Berlin","11.11.2011","DE3248423432","false","Berliner Straße 23","12345","peterchen","Herr");
         String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "35", "46"};
 
         TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", currendUser);
 
-        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0"));
+        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", "1,2,3,4,5,6", "4", "11.11.2011"));
 
         //Test
         testHandler.heandleAction(testTipp);
@@ -49,12 +49,12 @@ class GiveTippsHandlerTest {
     @Test
     public void shouldShowAnErrorMessageIfTheCurrendUserAlreadyGaveTheExactSameTippForThisDrawing(){
         //Setup
-        User currendUser = new User("Peter", "1234wasd");
+        User currendUser = new User("1","Peter","Mayer","test","Berlin","11.11.2011","DE3248423432","false","Berliner Straße 23","12345","peterchen","Herr");
         String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "35", "46"};
 
         TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", currendUser);
 
-        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0"));
+        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", "1,2,3,4,5,6", "4", "11.11.2011"));
         when(mockBackend.isTippAlreaddyGiven(any(Tipp.class))).thenReturn(true);
 
         //Test
@@ -68,12 +68,12 @@ class GiveTippsHandlerTest {
     @Test
     public void shouldShowAnErrorMessageIfThereAreNotSevenNumbersTipped(){
         //Setup
-        User currendUser = new User("Peter", "1234wasd");
+        User currendUser = new User("1","Peter","Mayer","test","Berlin","11.11.2011","DE3248423432","false","Berliner Straße 23","12345","peterchen","Herr");
         String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "46"};
 
         TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", currendUser);
 
-        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0"));
+        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", "1,2,3,4,5,6", "4", "11.11.2011"));
 
         //Test
         testHandler.heandleAction(testTipp);

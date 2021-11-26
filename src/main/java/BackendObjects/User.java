@@ -15,10 +15,11 @@ public class User {
     private final StringProperty birthdate;
     private final StringProperty bankAccount;
     private final StringProperty isAdmin;
+    private final StringProperty title;
 
     public User(
             String id, String firstName, String lastName,String password, String city, String birthdate,
-            String bankAccount, String isAdmin, String street, String postcode, String username
+            String bankAccount, String isAdmin, String street, String postcode, String username, String title
     ) {
         this.id = new SimpleStringProperty(id);
         this.firstName = new SimpleStringProperty(firstName);
@@ -31,6 +32,7 @@ public class User {
         this.street = new SimpleStringProperty(street);
         this.postcode = new SimpleStringProperty(postcode);
         this.username = new SimpleStringProperty(username);
+        this.title = new SimpleStringProperty(title);
     }
 
     public String getId() {
@@ -41,20 +43,12 @@ public class User {
         return id;
     }
 
-    public void setId(String id) {
-        this.id.set(id);
-    }
-
     public String getFirstName() {
         return firstName.get();
     }
 
     public StringProperty firstNameProperty() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName.set(firstName);
     }
 
     public String getLastName() {
@@ -65,21 +59,12 @@ public class User {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName.set(lastName
-        );
-    }
-
     public String getPassword() {
         return password.get();
     }
 
     public StringProperty passwordProperty() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password.set(password);
     }
 
     public String getStreet() {
@@ -90,20 +75,12 @@ public class User {
         return street;
     }
 
-    public void setStreet(String street) {
-        this.street.set(street);
-    }
-
     public String getPostcode() {
         return postcode.get();
     }
 
     public StringProperty postcodeProperty() {
         return postcode;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode.set(postcode);
     }
 
     public String getUsername() {
@@ -114,20 +91,12 @@ public class User {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username.set(username);
-    }
-
     public String getCity() {
         return city.get();
     }
 
     public StringProperty cityProperty() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city.set(city);
     }
 
     public String getBirthdate() {
@@ -138,10 +107,6 @@ public class User {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
-        this.birthdate.set(birthdate);
-    }
-
     public String getBankAccount() {
         return bankAccount.get();
     }
@@ -150,19 +115,19 @@ public class User {
         return bankAccount;
     }
 
-    public void setBankAccount(String bankAccount) {
-        this.bankAccount.set(bankAccount);
-    }
-
-    public void setIsAdmin(String isAdmin) {
-        this.isAdmin.set(isAdmin);
-    }
-
     public String getIsAdmin() {
         return isAdmin.get();
     }
 
     public StringProperty isAdminProperty() {
         return isAdmin;
+    }
+
+    public String getTitle(){
+        return title.get();
+    }
+
+    public StringProperty titleProperty() {
+        return title;
     }
 }

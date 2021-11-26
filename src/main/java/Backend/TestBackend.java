@@ -14,7 +14,7 @@ public class TestBackend implements Backend {
     }
 
     private void initializeUsers() {
-        allUsers.add(new User("Peter", "1234wasd"));
+        allUsers.add(new User("1","Peter","Mayer","test","Berlin","11.11.2011","DE3248423432","false","Berliner Straße 23","12345","peterchen","Herr"));
     }
 
     @Override
@@ -44,7 +44,7 @@ public class TestBackend implements Backend {
 
     @Override
     public Drawing getNextDrawing() {
-        return new Drawing("0");
+        return new Drawing("0", "1,2,3,4,5,6", "4", "11.11.2011");
     }
 
     @Override

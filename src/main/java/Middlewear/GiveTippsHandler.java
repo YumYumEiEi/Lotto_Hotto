@@ -39,7 +39,7 @@ public class GiveTippsHandler extends GiveTippsMiddlewear {
         String username = performedAction.getCurrendUsername();
         String[] tippedNumbers = performedAction.getTippedNumbers();
         String superzahl  = performedAction.getSuperzahl();
-        String nextZiehungID = backend.getNextDrawing().getID();
+        String nextZiehungID = backend.getNextDrawing().getId();
 
         if(tippedNumbers.length != 7){
             frontend.showNotSevenNumbersPickedErrorMessage();
