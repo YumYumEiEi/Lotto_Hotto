@@ -6,15 +6,15 @@ import javafx.beans.property.StringProperty;
 public class Tipp {
     private final String[] allTippedNumbers;
     private final StringProperty bonusNumber;
-    private final StringProperty userID;
-    private final StringProperty drawID;
+    private final StringProperty username;
+    private final StringProperty drawDate;
 
 
-    public Tipp(String[] allTippedNumbers, String bonusNumber, String userID, String drawID) {
+    public Tipp(String[] allTippedNumbers, String bonusNumber, String username, String drawDate) {
         this.allTippedNumbers = allTippedNumbers;
         this.bonusNumber = new SimpleStringProperty(bonusNumber);
-        this.userID = new SimpleStringProperty(userID);
-        this.drawID = new SimpleStringProperty(drawID);
+        this.username = new SimpleStringProperty(username);
+        this.drawDate = new SimpleStringProperty(drawDate);
     }
     public String[] getAllTippedNumbers() {
         return allTippedNumbers;
@@ -28,20 +28,20 @@ public class Tipp {
         return bonusNumber;
     }
 
-    public String getUserID() {
-        return userID.get();
+    public String getUsername() {
+        return username.get();
     }
 
-    public StringProperty userIDProperty() {
-        return userID;
+    public StringProperty usernameProperty() {
+        return username;
     }
 
-    public String getDrawID() {
-        return drawID.get();
+    public String getDrawDate() {
+        return drawDate.get();
     }
 
-    public StringProperty drawIDProperty() {
-        return drawID;
+    public StringProperty drawDateProperty() {
+        return drawDate;
     }
 
 }
