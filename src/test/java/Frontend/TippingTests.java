@@ -70,6 +70,76 @@ public class TippingTests extends ApplicationTest {
         assertEquals("", style);
     }
 
+    @Test
+    public void shouldMarkNumbersInANewWayIfTooManyAreSelected(){
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
+
+        parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "bt_01"));
+        clickOn(NodeFinder.findeNode(parent, "bt_02"));
+        clickOn(NodeFinder.findeNode(parent, "bt_03"));
+        clickOn(NodeFinder.findeNode(parent, "bt_04"));
+        clickOn(NodeFinder.findeNode(parent, "bt_05"));
+        clickOn(NodeFinder.findeNode(parent, "bt_06"));
+        clickOn(NodeFinder.findeNode(parent, "bt_07"));
+
+        String style = NodeFinder.findeNode(parent, "bt_01").getStyle();
+        assertEquals("-fx-background-color: #ff0000", style);
+    }
+
+    @Test
+    public void shouldMarkButtonsNormalIfTheyWereSpecialyMarkedAndEnoughtButtonsWereUnselected(){
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
+
+        parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "bt_01"));
+        clickOn(NodeFinder.findeNode(parent, "bt_02"));
+        clickOn(NodeFinder.findeNode(parent, "bt_03"));
+        clickOn(NodeFinder.findeNode(parent, "bt_04"));
+        clickOn(NodeFinder.findeNode(parent, "bt_05"));
+        clickOn(NodeFinder.findeNode(parent, "bt_06"));
+        clickOn(NodeFinder.findeNode(parent, "bt_07"));
+        clickOn(NodeFinder.findeNode(parent, "bt_07"));
+
+        String style = NodeFinder.findeNode(parent, "bt_01").getStyle();
+        assertEquals("-fx-background-color: #00ff00", style);
+    }
+
+    @Test
+    public void shouldMarkBonusNumberIfSelected(){
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
+
+        parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "bts_01"));
+
+        String style = NodeFinder.findeNode(parent, "bts_01").getStyle();
+        assertEquals("-fx-background-color: #00ff00", style);
+    }
+
+    @Test
+    public void shouldMarkAnotherBonusnumberButtonIfSelectedAndDemarkThePreviousSelectedOne(){
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
+
+        parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "bts_01"));
+        clickOn(NodeFinder.findeNode(parent, "bts_02"));
+
+        String style = NodeFinder.findeNode(parent, "bts_01").getStyle();
+        assertEquals("", style);
+    }
+
     private void goToTippMainWindow() {
         Parent parent = mediator.getScene().getRoot();
         clickOn(NodeFinder.findeNode(parent, "tipButton"));

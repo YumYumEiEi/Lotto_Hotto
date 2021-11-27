@@ -32,12 +32,12 @@ class GiveTippsHandlerTest {
     @Test
     public void shouldSaveTheTippIfEverythingIsbCorrect(){
         //Setup
-        String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "35", "46"};
+        String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "35"};
 
         TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", User.getEmptyUser());
 
         when(mockBackend.isTippAlreaddyGiven(any(Tipp.class), any(String.class))).thenReturn(false);
-        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0"));
+        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", "", "", "11.11.1111"));
 
         //Test
         testHandler.heandleAction(testTipp);
@@ -49,11 +49,11 @@ class GiveTippsHandlerTest {
     @Test
     public void shouldShowAnErrorMessageIfTheCurrendUserAlreadyGaveTheExactSameTippForThisDrawing(){
         //Setup
-        String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "35", "46"};
+        String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "35"};
 
         TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", User.getEmptyUser());
 
-        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0"));
+        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", "", "", "22.12.1111"));
         when(mockBackend.isTippAlreaddyGiven(any(Tipp.class), any(String.class))).thenReturn(true);
 
         //Test
@@ -65,19 +65,19 @@ class GiveTippsHandlerTest {
     }
 
     @Test
-    public void shouldShowAnErrorMessageIfThereAreNotSevenNumbersTipped(){
+    public void shouldShowAnErrorMessageIfThereAreNotSixNumbersTipped(){
         //Setup
-        String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "46"};
+        String[] tippedNumbers = new String[]{"3", "7", "18", "22", "46"};
 
         TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", User.getEmptyUser());
 
-        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0"));
+        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", "", "", "31.08.1942"));
 
         //Test
         testHandler.heandleAction(testTipp);
 
         //Assert
         verify(mockBackend, times(0)).saveTipp(any(Tipp.class));
-        verify(mockFrontend, times(1)).showNotSevenNumbersPickedErrorMessage();
+        verify(mockFrontend, times(1)).showNotSixNumbersPickedErrorMessage();
     }
 }

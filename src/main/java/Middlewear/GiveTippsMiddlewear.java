@@ -13,7 +13,7 @@ public abstract class GiveTippsMiddlewear implements Middlewear {
 
     protected abstract boolean isTippLegal(Tipp givenTipp, String userID);
 
-    protected abstract boolean areSevenNumbersPicked(Tipp givenTipp);
+    protected abstract boolean areSixNumbersPicked(Tipp givenTipp);
 
     protected abstract boolean isOneSuperzahlPicked(Tipp givenTipp);
 

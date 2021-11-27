@@ -3,12 +3,8 @@ package Middlewear;
 import ActionObjects.ActionObject;
 import ActionObjects.RegisterActionObject;
 import Backend.Backend;
-import BackendObjects.Adress;
-import BackendObjects.BankAccount;
 import BackendObjects.User;
-import Frontend.Frontend;
 import Frontend.RegistrationFrontend;
-import Frontend.LoginFrontend;
 
 import java.lang.reflect.Field;
 

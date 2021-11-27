@@ -1,7 +1,5 @@
 package Backend;
 
-import BackendObjects.Adress;
-import BackendObjects.BankAccount;
 import BackendObjects.Tipp;
 import BackendObjects.User;
 import BackendObjects.Drawing;

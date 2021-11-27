@@ -46,7 +46,7 @@ public class TestBackend implements Backend {
 
     @Override
     public Drawing getNextDrawing() {
-        return new Drawing("0");
+        return new Drawing("0", "", "", "11.11.2021");
     }
 
     @Override

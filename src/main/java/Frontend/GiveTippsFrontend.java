@@ -10,7 +10,7 @@ public interface GiveTippsFrontend extends FrontendWithController {
 
     void showTippAlreaddyThereErrorMessage();
 
-    void showNotSevenNumbersPickedErrorMessage();
+    void showNotSixNumbersPickedErrorMessage();
 
     void showNoSuperzahlPickedErrorMessage();
 

@@ -1,26 +1,47 @@
 package BackendObjects;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Tipp {
     private final String[] allTippedNumbers;
-    private final String superzahl;
-
-    private final String username;
-
-    private final String zeihung;
+    private final StringProperty bonusNumber;
+    private final StringProperty username;
+    private final StringProperty drawDate;
 
 
-    public Tipp(String[] allTippedNumbers, String superzahl, String username, String zeihung) {
+    public Tipp(String[] allTippedNumbers, String bonusNumber, String username, String drawDate) {
         this.allTippedNumbers = allTippedNumbers;
-        this.superzahl = superzahl;
-        this.username = username;
-        this.zeihung = zeihung;
+        this.bonusNumber = new SimpleStringProperty(bonusNumber);
+        this.username = new SimpleStringProperty(username);
+        this.drawDate = new SimpleStringProperty(drawDate);
+    }
+    public String[] getAllTippedNumbers() {
+        return allTippedNumbers;
     }
 
-    public String[] getTippedNumbers() {
-        return this.allTippedNumbers;
+    public String getBonusNumber() {
+        return bonusNumber.get();
     }
 
-    public String getSuperzahl() {
-        return this.superzahl;
+    public StringProperty bonusNumberProperty() {
+        return bonusNumber;
     }
+
+    public String getUsername() {
+        return username.get();
+    }
+
+    public StringProperty usernameProperty() {
+        return username;
+    }
+
+    public String getDrawDate() {
+        return drawDate.get();
+    }
+
+    public StringProperty drawDateProperty() {
+        return drawDate;
+    }
+
 }

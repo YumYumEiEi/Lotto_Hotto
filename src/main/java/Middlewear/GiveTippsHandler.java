@@ -4,7 +4,6 @@ import ActionObjects.ActionObject;
 import ActionObjects.TippActionObject;
 import Backend.Backend;
 import BackendObjects.Tipp;
-import BackendObjects.User;
 import Frontend.GiveTippsFrontend;
 
 public class GiveTippsHandler extends GiveTippsMiddlewear {
@@ -16,22 +15,22 @@ public class GiveTippsHandler extends GiveTippsMiddlewear {
 
     @Override
     protected boolean isTippLegal(Tipp givenTipp, String userID) {
-        return areSevenNumbersPicked(givenTipp) && isOneSuperzahlPicked(givenTipp) && isTippADuplicat(givenTipp, userID);
+        return areSixNumbersPicked(givenTipp) && isOneSuperzahlPicked(givenTipp) && isTippADuplicat(givenTipp, userID);
     }
 
     @Override
-    protected boolean areSevenNumbersPicked(Tipp givenTipp) {
-        if(givenTipp.getTippedNumbers().length == 7){
+    protected boolean areSixNumbersPicked(Tipp givenTipp) {
+        if(givenTipp.getAllTippedNumbers().length == 6){
             return true;
         }else{
-            frontend.showNotSevenNumbersPickedErrorMessage();
+            frontend.showNotSixNumbersPickedErrorMessage();
             return false;
         }
     }
 
     @Override
     protected boolean isOneSuperzahlPicked(Tipp givenTipp) {
-        if(givenTipp.getSuperzahl().equals("")){
+        if(givenTipp.getBonusNumber().equals("")){
             frontend.showNoSuperzahlPickedErrorMessage();
             return false;
         }else{
@@ -53,10 +52,10 @@ public class GiveTippsHandler extends GiveTippsMiddlewear {
     protected void giveTipp(TippActionObject performedAction) {
         String userID = performedAction.getUserID();
         String[] tippedNumbers = performedAction.getTippedNumbers();
-        String superzahl  = performedAction.getSuperzahl();
-        String nextZiehungID = backend.getNextDrawing().getID();
+        String bonusNumber  = performedAction.getSuperzahl();
+        String nextDrawingDate = backend.getNextDrawing().getDrawDate();
 
-        Tipp givenTipp = new Tipp(tippedNumbers, superzahl, userID, nextZiehungID);
+        Tipp givenTipp = new Tipp(tippedNumbers, bonusNumber, userID, nextDrawingDate);
 
         if(isTippLegal(givenTipp, userID)){
             backend.saveTipp(givenTipp);

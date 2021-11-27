@@ -210,10 +210,26 @@ public class GiveTippsWindowController {
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                if(!(button.getText().equals("Zurück ")) && !(button.getText().equals("Bestätigen"))){
+                if(button.getId().substring(0,3).equals("bt_")){
                     button.setOnMouseClicked(numberbuttonHandler);
                 }
+            }
+        }
+    }
 
+    public void addBonusNumberButoonHandler(GiveTippsWindow.BonusNumberButtonHandler bonusNumberButtonHandler) {
+        Field[] allFields =  this.getClass().getDeclaredFields();
+        Button button = new Button();
+        for(Field field : allFields){
+            if(field.getType().equals(Button.class)){
+                try {
+                    button = (Button) field.get(this);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                if(button.getId().substring(0,4).equals("bts_")){
+                    button.setOnMouseClicked(bonusNumberButtonHandler);
+                }
             }
         }
     }
