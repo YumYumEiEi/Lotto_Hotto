@@ -35,14 +35,6 @@ public class User {
         this.title = new SimpleStringProperty(title);
     }
 
-    public String getId() {
-        return id.get();
-    }
-
-    public StringProperty idProperty() {
-        return id;
-    }
-
     public static User getEmptyUser() {
         return new User("","", "", "", "", "", "", "", "" ,
                 "", "", "");
