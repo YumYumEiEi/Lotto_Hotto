@@ -1,17 +1,14 @@
 package Frontend;
 
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
-
-import java.awt.*;
-
-import static org.testfx.api.FxAssert.verifyThat;
+import org.testfx.matcher.base.NodeMatchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testfx.api.FxAssert.verifyThat;
 
 public class TippingTests extends ApplicationTest {
     Mediator mediator = new Mediator();
@@ -138,6 +135,95 @@ public class TippingTests extends ApplicationTest {
 
         String style = NodeFinder.findeNode(parent, "bts_01").getStyle();
         assertEquals("", style);
+    }
+
+    @Test
+    public void shouldShowErrorMessageIfTooManyNumbersArePickedAndITryToConfirm(){
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
+
+        parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "bt_01"));
+        clickOn(NodeFinder.findeNode(parent, "bt_02"));
+        clickOn(NodeFinder.findeNode(parent, "bt_03"));
+        clickOn(NodeFinder.findeNode(parent, "bt_04"));
+        clickOn(NodeFinder.findeNode(parent, "bt_05"));
+        clickOn(NodeFinder.findeNode(parent, "bt_06"));
+        clickOn(NodeFinder.findeNode(parent, "bt_07"));
+
+        clickOn(NodeFinder.findeNode(parent, "bts_01"));
+
+        clickOn(NodeFinder.findeNode(parent, "confirmButton"));
+
+        verifyThat("Es müssen 6 Zahlen ausgewählt sein" , NodeMatchers.isVisible());
+    }
+
+    @Test
+    public void shouldShowErrorMessageIfTooLessNumbersArePicked(){
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
+
+        parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "bt_01"));
+        clickOn(NodeFinder.findeNode(parent, "bt_02"));
+        clickOn(NodeFinder.findeNode(parent, "bt_03"));
+        clickOn(NodeFinder.findeNode(parent, "bt_04"));
+        clickOn(NodeFinder.findeNode(parent, "bt_05"));
+
+        clickOn(NodeFinder.findeNode(parent, "bts_01"));
+
+        clickOn(NodeFinder.findeNode(parent, "confirmButton"));
+
+        verifyThat("Es müssen 6 Zahlen ausgewählt sein" , NodeMatchers.isVisible());
+    }
+
+    @Test
+    public void shouldShowAnErrorMessageIfNoBonusnumberWasOickedAndITryToConfirm(){
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
+
+        parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "bt_01"));
+        clickOn(NodeFinder.findeNode(parent, "bt_02"));
+        clickOn(NodeFinder.findeNode(parent, "bt_03"));
+        clickOn(NodeFinder.findeNode(parent, "bt_04"));
+        clickOn(NodeFinder.findeNode(parent, "bt_05"));
+        clickOn(NodeFinder.findeNode(parent, "bt_06"));
+
+
+        clickOn(NodeFinder.findeNode(parent, "confirmButton"));
+
+        verifyThat("Keine Superzahl ausgewählt" , NodeMatchers.isVisible());
+    }
+
+    @Test
+    public void shouldReturnToTippMainWindowIfTippWasAlright(){
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "makeATippButton"));
+
+        parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "bt_01"));
+        clickOn(NodeFinder.findeNode(parent, "bt_02"));
+        clickOn(NodeFinder.findeNode(parent, "bt_03"));
+        clickOn(NodeFinder.findeNode(parent, "bt_04"));
+        clickOn(NodeFinder.findeNode(parent, "bt_05"));
+        clickOn(NodeFinder.findeNode(parent, "bt_06"));
+
+        clickOn(NodeFinder.findeNode(parent, "bts_01"));
+
+        clickOn(NodeFinder.findeNode(parent, "confirmButton"));
+
+        assertEquals("Tipp Main", mediator.getPrimaryStage().getTitle());
+
+
     }
 
     private void goToTippMainWindow() {

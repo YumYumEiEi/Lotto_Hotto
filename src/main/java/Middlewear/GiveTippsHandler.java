@@ -1,7 +1,7 @@
 package Middlewear;
 
 import ActionObjects.ActionObject;
-import ActionObjects.TippActionObject;
+import ActionObjects.GiveATippActionObject;
 import Backend.Backend;
 import BackendObjects.Tipp;
 import Frontend.GiveTippsFrontend;
@@ -15,7 +15,7 @@ public class GiveTippsHandler extends GiveTippsMiddlewear {
 
     @Override
     protected boolean isTippLegal(Tipp givenTipp, String userID) {
-        return areSixNumbersPicked(givenTipp) && isOneSuperzahlPicked(givenTipp) && isTippADuplicat(givenTipp, userID);
+        return areSixNumbersPicked(givenTipp) && isOneBonusnumberPicked(givenTipp) && isTippADuplicat(givenTipp, userID);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class GiveTippsHandler extends GiveTippsMiddlewear {
     }
 
     @Override
-    protected boolean isOneSuperzahlPicked(Tipp givenTipp) {
+    protected boolean isOneBonusnumberPicked(Tipp givenTipp) {
         if(givenTipp.getBonusNumber().equals("")){
             frontend.showNoSuperzahlPickedErrorMessage();
             return false;
@@ -49,16 +49,17 @@ public class GiveTippsHandler extends GiveTippsMiddlewear {
     }
 
     @Override
-    protected void giveTipp(TippActionObject performedAction) {
+    protected void giveTipp(GiveATippActionObject performedAction) {
         String userID = performedAction.getUserID();
         String[] tippedNumbers = performedAction.getTippedNumbers();
         String bonusNumber  = performedAction.getSuperzahl();
-        String nextDrawingDate = backend.getNextDrawing().getDrawDate();
+        String drawingID = backend.getNextDrawing().getId();
 
-        Tipp givenTipp = new Tipp(tippedNumbers, bonusNumber, userID, nextDrawingDate);
+        Tipp givenTipp = new Tipp(tippedNumbers, bonusNumber, userID, drawingID);
 
         if(isTippLegal(givenTipp, userID)){
             backend.saveTipp(givenTipp);
+            frontend.startTippMainWindow();
         }
 
     }
@@ -69,7 +70,7 @@ public class GiveTippsHandler extends GiveTippsMiddlewear {
 
         switch(calledFunction){
             case "giveTipp":
-                giveTipp((TippActionObject) performedAction);
+                giveTipp((GiveATippActionObject) performedAction);
         }
     }
 

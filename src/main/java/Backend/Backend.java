@@ -1,6 +1,7 @@
 package Backend;
 
 import BackendObjects.Tipp;
+import BackendObjects.TippTableView;
 import BackendObjects.User;
 import BackendObjects.Drawing;
 
@@ -18,4 +19,7 @@ public interface Backend {
     boolean isTippAlreaddyGiven(Tipp givenTipp, String userID);
 
     String getNextUserID();
+
+    TippTableView[] getAllTippsFromUser(String id);
+
 }

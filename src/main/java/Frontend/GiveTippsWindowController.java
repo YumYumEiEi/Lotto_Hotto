@@ -1,6 +1,7 @@
 package Frontend;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import java.lang.reflect.Field;
@@ -188,12 +189,23 @@ public class GiveTippsWindowController {
     private Button backButton;
 
     public void showTippAlreaddyThereErrorMessage() {
+
     }
 
     public void showNotSevenNumbersPickedErrorMessage() {
+        Alert userNotFoundAllert = new Alert(Alert.AlertType.INFORMATION);
+        userNotFoundAllert.setTitle("6 numbers needed");
+        userNotFoundAllert.setHeaderText("Es müssen 6 Zahlen ausgewählt sein");
+        userNotFoundAllert.setContentText("Bitte wählen sie 6 Normale Zahlen und eine Superzahl aus");
+        userNotFoundAllert.show();
     }
 
     public void showSuperzahlNotPickedErrorMessage() {
+        Alert userNotFoundAllert = new Alert(Alert.AlertType.INFORMATION);
+        userNotFoundAllert.setTitle("No bonusnumber picked");
+        userNotFoundAllert.setHeaderText("Keine Superzahl ausgewählt");
+        userNotFoundAllert.setContentText("Bitte wählen sie 6 Normale Zahlen und eine Superzahl aus");
+        userNotFoundAllert.show();
     }
 
     public void addConfirmButtonActionHandler(GiveTippsWindow.ConfirmButtonActionHandler confirmButtonActionHandler) {
@@ -227,7 +239,7 @@ public class GiveTippsWindowController {
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                if(button.getId().substring(0,4).equals("bts_")){
+                if(button.getId().substring(0,4 ).equals("bts_")){
                     button.setOnMouseClicked(bonusNumberButtonHandler);
                 }
             }

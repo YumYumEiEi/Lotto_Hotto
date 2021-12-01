@@ -1,7 +1,6 @@
 package Middlewear;
 
-import ActionObjects.ActionObject;
-import ActionObjects.TippActionObject;
+import ActionObjects.GiveATippActionObject;
 import Backend.Backend;
 import BackendObjects.Tipp;
 import Frontend.GiveTippsFrontend;
@@ -15,9 +14,9 @@ public abstract class GiveTippsMiddlewear implements Middlewear {
 
     protected abstract boolean areSixNumbersPicked(Tipp givenTipp);
 
-    protected abstract boolean isOneSuperzahlPicked(Tipp givenTipp);
+    protected abstract boolean isOneBonusnumberPicked(Tipp givenTipp);
 
     protected abstract boolean isTippADuplicat(Tipp givenTipp, String userID);
 
-    protected abstract void giveTipp(TippActionObject performedAction);
+    protected abstract void giveTipp(GiveATippActionObject performedAction);
 }

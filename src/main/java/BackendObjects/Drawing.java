@@ -5,15 +5,19 @@ import javafx.beans.property.StringProperty;
 
 public class Drawing {
     private final StringProperty id;
-    private final StringProperty numbers;
+    private final StringProperty[] numbers;
     private final StringProperty bonusNumber;
     private final StringProperty drawDate;
 
-    public Drawing(String id, String numbers, String bonusNumber, String drawDate) {
+    public Drawing(String id, String[] numbers, String bonusNumber, String drawDate) {
         this.id = new SimpleStringProperty(id);
-        this.numbers = new SimpleStringProperty(numbers);
         this.bonusNumber = new SimpleStringProperty(bonusNumber);
         this.drawDate = new SimpleStringProperty(drawDate);
+
+        this.numbers = new StringProperty[numbers.length];
+        for(int position = 0; position < numbers.length; position++){
+            this.numbers[position] = new SimpleStringProperty(numbers[position]);
+        }
 
     }
 
@@ -25,11 +29,17 @@ public class Drawing {
         return id;
     }
 
-    public String getNumbers() {
-        return numbers.get();
+    public String[] getNumbers() {
+        String[] returnValue = new String[this.numbers.length];
+
+        for (int position = 0; position < returnValue.length; position++){
+            returnValue[position] = numbers[position].get();
+        }
+
+        return returnValue;
     }
 
-    public StringProperty numbersProperty() {
+    public StringProperty[] numbersProperty() {
         return numbers;
     }
 

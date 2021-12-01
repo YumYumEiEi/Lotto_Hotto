@@ -24,12 +24,21 @@ public class TippMainWindow extends Application implements TippMainFrontend {
 
         controller = loader.getController();
         controller.addGiveTippButtonListener(new GoToGiveATippButtonHandler());
+        controller.addShowTippButtonListener( new GoToShowTippsButonHandler());
     }
 
     private void startGiveATippWindow(){
         try {
             mediator.startGiveTippWindow();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startShowTippsWindow(){
+        try{
+            mediator.startShowTippWindow();
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -44,6 +53,14 @@ public class TippMainWindow extends Application implements TippMainFrontend {
         @Override
         public void handle(Event event) {
             startGiveATippWindow();
+        }
+    }
+
+    public class GoToShowTippsButonHandler implements EventHandler{
+
+        @Override
+        public void handle(Event event) {
+            startShowTippsWindow();
         }
     }
 }

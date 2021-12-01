@@ -1,6 +1,6 @@
 package Middlewear;
 
-import ActionObjects.TippActionObject;
+import ActionObjects.GiveATippActionObject;
 import Backend.Backend;
 import BackendObjects.Drawing;
 import BackendObjects.Tipp;
@@ -34,10 +34,10 @@ class GiveTippsHandlerTest {
         //Setup
         String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "35"};
 
-        TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", User.getEmptyUser());
+        GiveATippActionObject testTipp = new GiveATippActionObject( tippedNumbers, "7", User.getEmptyUser());
 
         when(mockBackend.isTippAlreaddyGiven(any(Tipp.class), any(String.class))).thenReturn(false);
-        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", "", "", "11.11.1111"));
+        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", new String[]{}, "", "11.11.1111"));
 
         //Test
         testHandler.heandleAction(testTipp);
@@ -51,9 +51,9 @@ class GiveTippsHandlerTest {
         //Setup
         String[] tippedNumbers = new String[]{"3", "7", "18", "21", "22", "35"};
 
-        TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", User.getEmptyUser());
+        GiveATippActionObject testTipp = new GiveATippActionObject( tippedNumbers, "7", User.getEmptyUser());
 
-        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", "", "", "22.12.1111"));
+        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", new String[]{}, "", "22.12.1111"));
         when(mockBackend.isTippAlreaddyGiven(any(Tipp.class), any(String.class))).thenReturn(true);
 
         //Test
@@ -69,9 +69,9 @@ class GiveTippsHandlerTest {
         //Setup
         String[] tippedNumbers = new String[]{"3", "7", "18", "22", "46"};
 
-        TippActionObject testTipp = new TippActionObject( tippedNumbers, "7", User.getEmptyUser());
+        GiveATippActionObject testTipp = new GiveATippActionObject( tippedNumbers, "7", User.getEmptyUser());
 
-        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", "", "", "31.08.1942"));
+        when(mockBackend.getNextDrawing()).thenReturn(new Drawing("0", new String[]{}, "", "31.08.1942"));
 
         //Test
         testHandler.heandleAction(testTipp);

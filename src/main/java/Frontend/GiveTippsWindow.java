@@ -1,6 +1,7 @@
 package Frontend;
 
 import ActionObjects.ActionObject;
+import ActionObjects.GiveATippActionObject;
 import BackendObjects.User;
 import Middlewear.GiveTippsHandler;
 import Middlewear.GiveTippsMiddlewear;
@@ -31,7 +32,7 @@ public class GiveTippsWindow implements GiveTippsFrontend {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("FXML/GiveTippWindow.fxml"));
         Parent root = loader.load();
         stage.setTitle("Tippen");
-        stage.setScene(new Scene(root, 500, 230));
+        stage.setScene(new Scene(root, 360, 360));
         stage.show();
 
         controller = loader.getController();
@@ -44,12 +45,20 @@ public class GiveTippsWindow implements GiveTippsFrontend {
 
     @Override
     public void startTippMainWindow() {
-
+        try {
+            mediator.startTippsMain();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void startMainWindow() {
+        try {
+            mediator.startMain();
+        } catch (Exception e) {
 
+        }
     }
 
     @Override
@@ -77,10 +86,32 @@ public class GiveTippsWindow implements GiveTippsFrontend {
         middlewear.heandleAction(action);
     }
 
+    private void giveATipp() {
+        ArrayList<String> allTippedNumbersAsString = new ArrayList<String>();
+        for(Button button : allTippedNumber){
+            allTippedNumbersAsString.add(button.getText());
+        }
+        String[] allTippedNumbersAsStingArray = new String[allTippedNumber.size()];
+        allTippedNumbersAsStingArray = allTippedNumbersAsString.toArray(allTippedNumbersAsStingArray);
+
+
+        String selectedBonusNumberString;
+        if(selectedBousNumber != null){
+            selectedBonusNumberString = selectedBousNumber.getText();
+        }else{
+            selectedBonusNumberString = "";
+        }
+
+        GiveATippActionObject performedAction = new GiveATippActionObject(allTippedNumbersAsStingArray, selectedBonusNumberString, mediator.getActiveUser());
+
+        actionPerformed(performedAction);
+    }
+
     public class ConfirmButtonActionHandler implements EventHandler {
 
         @Override
         public void handle(Event event) {
+            giveATipp();
         }
     }
 

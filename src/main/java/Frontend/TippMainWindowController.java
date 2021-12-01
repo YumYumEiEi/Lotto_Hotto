@@ -18,4 +18,9 @@ public class TippMainWindowController {
 
         this.makeATippButton.setOnMouseClicked(goToGiveATippButtonHandler);
     }
+
+    public void addShowTippButtonListener(TippMainWindow.GoToShowTippsButonHandler goToShowTippsButonHandler) {
+
+        this.showTippsButton.setOnMouseClicked(goToShowTippsButonHandler);
+    }
 }
