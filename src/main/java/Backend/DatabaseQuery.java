@@ -6,7 +6,9 @@ import BackendObjects.TippTableView;
 import BackendObjects.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DatabaseQuery implements Backend {
     @Override
@@ -26,7 +28,7 @@ public class DatabaseQuery implements Backend {
             User user = new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),
                 rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
                 rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12));
-
+            connection.close();
             return user;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,6 +47,7 @@ public class DatabaseQuery implements Backend {
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, user.getUsername());
+            System.out.println(user.getUsername());
             ps.setString(2, user.getTitle());
             ps.setString(3, user.getFirstName());
             ps.setString(4, user.getLastName());
@@ -57,14 +60,8 @@ public class DatabaseQuery implements Backend {
             ps.setString(11, user.getIsAdmin());
 
             ps.executeUpdate();
+            connection.close();
 
-            ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM Person");
-            while(rs.next()){
-                for(int i =1;i<12;i++){
-                    System.out.println(rs.getString(i));
-                }
-
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,15 +80,19 @@ public class DatabaseQuery implements Backend {
             ps.setString(1, username);
 
             ResultSet rs = ps.executeQuery();
-            if(rs.wasNull()){
-                return true;
+            connection.close();
+            if(rs.next()){
+
+                System.out.println("TEST");
+                return false;
             }
 
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        System.out.println("FALSCH");
+        return true;
     }
 
     @Override
@@ -102,6 +103,8 @@ public class DatabaseQuery implements Backend {
         ResultSet rs = connection.createStatement().executeQuery(sql);
         String[] allNumbers = rs.getString(2).split(",");
         Drawing drawing = new Drawing(rs.getString(1), allNumbers, rs.getString(3), rs.getString(4));
+        connection.close();
+        return drawing;
          } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -112,7 +115,7 @@ public class DatabaseQuery implements Backend {
     public void saveTipp(Tipp givenTipp) {
         String sql = "INSERT INTO Tipp(winningClass, person_id, numbers, draw_id, bonusNumber)" +
                 "VALUES(?,?,?,?,?)";
-
+        System.out.println(" saveTipp");
         PreparedStatement ps = null;
         Connection connection = DatabaseConnection.getConnection();
         Arrays.sort(givenTipp.getAllTippedNumbers());
@@ -125,6 +128,7 @@ public class DatabaseQuery implements Backend {
             ps.setString(4, givenTipp.getDrawID());
             ps.setString(5, givenTipp.getBonusNumber());
             ps.executeUpdate();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -134,22 +138,21 @@ public class DatabaseQuery implements Backend {
     public boolean isTippAlreaddyGiven(Tipp givenTipp, String userID) {
         String sql = "SELECT * FROM Tipp WHERE numbers=? AND person_id=?";
         String numbers = String.join(",", givenTipp.getAllTippedNumbers());
-
         try {
             Connection connection = DatabaseConnection.getConnection();
             PreparedStatement ps = null;
             ps = connection.prepareStatement(sql);
             ps.setString(1, numbers);
             ps.setString(2, givenTipp.getUserID());
-
             ResultSet rs = ps.executeQuery();
-            if(rs.wasNull()){
-                return false;
+            connection.close();
+            if(rs.next()){
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -159,8 +162,28 @@ public class DatabaseQuery implements Backend {
 
     @Override
     public TippTableView[] getAllTippsFromUser(String id) {
+        List<TippTableView> ttv = new ArrayList<>();
+        String sql = "SELECT z.drawDate, t.numbers, t.bonusNumber, z.numbers, z.bonusNumber, t.winningClass FROM Ziehung AS z JOIN Tipp AS t ON z.id = t.draw_id WHERE t.person_id =?";
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement ps = null;
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
 
-        return new TippTableView[0];
+
+            while(rs.next()) {
+                ttv.add(new TippTableView(rs.getString(1),rs.getString(2),rs.getString(3),
+                        rs.getString(4),rs.getString(5),rs.getString(6),"0"));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        TippTableView[] allTips = new TippTableView[ttv.size()];
+        allTips = ttv.toArray(allTips);
+
+        return allTips;
     }
 
 }

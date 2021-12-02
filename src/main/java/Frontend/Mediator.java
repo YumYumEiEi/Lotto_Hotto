@@ -1,7 +1,7 @@
 package Frontend;
 
 import Backend.Backend;
-import Backend.TestBackend;
+import Backend.DatabaseQuery;
 import BackendObjects.User;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -31,7 +31,7 @@ public class Mediator extends Application {
         showTippWindow = new ShowTippWindow();
         statisticWindow = new StatisticWindow();
 
-        backend = new TestBackend();
+        backend = new DatabaseQuery();
 
     }
 
