@@ -15,6 +15,7 @@ public class Mediator extends Application {
     private TippMainWindow tippMainWindow;
     private GiveTippsWindow giveTippsWindow;
     private ShowTippWindow showTippWindow;
+    private StatisticWindow statisticWindow;
 
     private Backend backend;
 
@@ -28,6 +29,7 @@ public class Mediator extends Application {
         tippMainWindow = new TippMainWindow();
         giveTippsWindow = new GiveTippsWindow();
         showTippWindow = new ShowTippWindow();
+        statisticWindow = new StatisticWindow();
 
         backend = new TestBackend();
 
@@ -61,8 +63,10 @@ public class Mediator extends Application {
         //TODO hier muss was gamacht werden!
     }
 
-    public void startStatistics() {
-        //TODO hier muss was gamacht werden!
+    public void startStatistics() throws Exception {
+        if(activeUser != null){
+            statisticWindow.start(primaryStage, this);
+        }
 
     }
 

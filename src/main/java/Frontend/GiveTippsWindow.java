@@ -37,6 +37,7 @@ public class GiveTippsWindow implements GiveTippsFrontend {
 
         controller = loader.getController();
         controller.addConfirmButtonActionHandler( new ConfirmButtonActionHandler());
+        controller.addBackButtonHandler(new BackButtonHandler());
         controller.addNumberButtonHandler(new NumberbuttonHandler());
         controller.addBonusNumberButoonHandler(new BonusNumberButtonHandler());
 
@@ -104,6 +105,9 @@ public class GiveTippsWindow implements GiveTippsFrontend {
 
         GiveATippActionObject performedAction = new GiveATippActionObject(allTippedNumbersAsStingArray, selectedBonusNumberString, mediator.getActiveUser());
 
+        allTippedNumber.removeAll(allTippedNumber);
+        selectedBousNumber = null;
+
         actionPerformed(performedAction);
     }
 
@@ -156,6 +160,14 @@ public class GiveTippsWindow implements GiveTippsFrontend {
                 button.setStyle("");
                 selectedBousNumber = null;
             }
+        }
+    }
+
+    public class BackButtonHandler implements EventHandler{
+
+        @Override
+        public void handle(Event event) {
+            startTippMainWindow();
         }
     }
 }

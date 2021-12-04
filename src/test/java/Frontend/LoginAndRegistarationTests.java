@@ -1,5 +1,7 @@
 package Frontend;
 
+import Backend.Backend;
+import BackendObjects.User;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 
@@ -13,14 +15,18 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 public class LoginAndRegistarationTests extends ApplicationTest {
     Mediator mediator = new Mediator();
+    Backend testBackend;
 
     @Override
     public void start(Stage stage) throws Exception{
+        testBackend = mediator.getBackend();
         mediator.start(stage);
     }
 
     @Test
     public void shouldOpenMainWindowIfITryToLoginWithExistingAccount(){
+        User testUser = createTestAccount();
+
         Parent parent = mediator.getScene().getRoot();
         clickOn(NodeFinder.findeNode(parent, "usernameField"));
         write("Peter");
@@ -31,6 +37,8 @@ public class LoginAndRegistarationTests extends ApplicationTest {
         clickOn(NodeFinder.findeNode(parent, "loginButton"));
 
         assertEquals(mediator.getPrimaryStage().getTitle(), "Lotto Hotto");
+
+        deleteTestAccount(testUser);
 
     }
 
@@ -57,7 +65,7 @@ public class LoginAndRegistarationTests extends ApplicationTest {
     }
 
     @Test
-    public void shouldRegistrateAUserSoHeCanLogin(){
+    public void shouldRegistrateAUserSoHeCanBeFoundInTheDatabase(){
         Parent parent = mediator.getScene().getRoot();
         clickOn(NodeFinder.findeNode(parent, "registerButton"));
 
@@ -97,20 +105,22 @@ public class LoginAndRegistarationTests extends ApplicationTest {
 
         clickOn(NodeFinder.findeNode(parent, "acceptButton"));
 
-        parent = mediator.getScene().getRoot();
-
-        clickOn(NodeFinder.findeNode(parent, "usernameField"));
-        write("Susanne");
-
-        clickOn(NodeFinder.findeNode(parent, "passwordField"));
-        write("1234wasd");
-
-        clickOn(NodeFinder.findeNode(parent, "loginButton"));
-
-        assertEquals( "Lotto Hotto", mediator.getPrimaryStage().getTitle());
+        assertEquals( false, testBackend.isUsernameUnique("Susanne"));
 
     }
 
+    private User createTestAccount() {
+        User testUser = new User(testBackend.getNextUserID(), "Herr", "Peter" ,"Peterson", "1234wasd",
+                "Berlin", "01.01.1000", "DE900005000300201", "false", "Berliner Straße 33",
+                "12345", "Peter");
+        testBackend.saveNewUser(testUser);
+
+        return testUser;
+    }
+
+    private void deleteTestAccount(User testUser) {
+        testBackend.deleteUser(testUser);
+    }
 
 
 

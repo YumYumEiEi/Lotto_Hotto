@@ -1,7 +1,12 @@
 package Frontend;
 
+import Backend.Backend;
+import BackendObjects.Drawing;
+import BackendObjects.Tipp;
+import BackendObjects.User;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -12,16 +17,28 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 public class TippingTests extends ApplicationTest {
     Mediator mediator = new Mediator();
+    Backend testBackend;
+    private User testUser;
 
     @Override
     public void start(Stage stage) throws Exception{
+        testBackend = mediator.getBackend();
         mediator.start(stage);
     }
 
     @BeforeEach
     public void setUp(){
+        createTestUser();
         login();
         goToTippMainWindow();
+        createTestDrawing();
+    }
+
+    @AfterEach
+    public void tearDown(){
+        deleteAllTippsFromTestUser();
+        deleteTestUser();
+        deleteTestDrawings();
     }
 
     @Test
@@ -211,19 +228,37 @@ public class TippingTests extends ApplicationTest {
         parent = mediator.getScene().getRoot();
 
         clickOn(NodeFinder.findeNode(parent, "bt_01"));
-        clickOn(NodeFinder.findeNode(parent, "bt_02"));
         clickOn(NodeFinder.findeNode(parent, "bt_03"));
-        clickOn(NodeFinder.findeNode(parent, "bt_04"));
-        clickOn(NodeFinder.findeNode(parent, "bt_05"));
-        clickOn(NodeFinder.findeNode(parent, "bt_06"));
+        clickOn(NodeFinder.findeNode(parent, "bt_10"));
+        clickOn(NodeFinder.findeNode(parent, "bt_30"));
+        clickOn(NodeFinder.findeNode(parent, "bt_32"));
+        clickOn(NodeFinder.findeNode(parent, "bt_46"));
 
-        clickOn(NodeFinder.findeNode(parent, "bts_01"));
+        clickOn(NodeFinder.findeNode(parent, "bts_04"));
 
         clickOn(NodeFinder.findeNode(parent, "confirmButton"));
 
         assertEquals("Tipp Main", mediator.getPrimaryStage().getTitle());
+    }
 
+    @Test
+    public void shouldOpenShowTippWindow(){
+        Parent parent = mediator.getScene().getRoot();
 
+        clickOn(NodeFinder.findeNode(parent, "showTippsButton"));
+
+        assertEquals("Deine Tipps", mediator.getPrimaryStage().getTitle());
+    }
+
+    @Test
+    public void shouldShowMyTipp(){
+        makeATipp();
+
+        Parent parent = mediator.getScene().getRoot();
+
+        clickOn(NodeFinder.findeNode(parent, "showTippsButton"));
+
+        verifyThat("1, 3, 10, 30, 32, 46", NodeMatchers.isVisible());
     }
 
     private void goToTippMainWindow() {
@@ -241,5 +276,34 @@ public class TippingTests extends ApplicationTest {
 
         clickOn(NodeFinder.findeNode(parent, "loginButton"));
 
+    }
+
+    private void makeATipp(){
+        testBackend.saveTipp(new Tipp(new String[]{"1", "3", "10", "30", "32", "46"}, "4", testUser.getId(), "0"));
+    }
+
+    private void createTestUser() {
+        User testUser = new User("0", "Herr", "Peter" ,"Peterson", "1234wasd",
+                "Berlin", "01.01.1000", "DE900005000300201", "false", "Berliner Straße 33",
+                "12345", "Peter");
+        testBackend.saveNewUser(testUser);
+
+        this.testUser = testUser;
+    }
+
+    private void createTestDrawing() {
+        testBackend.saveDrawing(new Drawing("0", new String[]{}, "", "11.11.1111"));
+    }
+
+    private void deleteTestUser(){
+        testBackend.deleteUser(this.testUser);
+    }
+
+    private void deleteAllTippsFromTestUser(){
+        testBackend.deleteAllTippsFrom(this.testUser);
+    }
+
+    private void deleteTestDrawings() {
+        testBackend.deleteDrawing("0");
     }
 }

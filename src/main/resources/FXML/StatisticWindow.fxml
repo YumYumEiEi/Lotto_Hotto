@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Frontend.StatisticWindowController">
+   <children>
+      <Label layoutX="30.0" layoutY="40.0" text="Kleinste meist benutzte Zahl" />
+      <Label layoutX="30.0" layoutY="70.0" text="Höchste meist benutzte Zahl" />
+      <Label layoutX="30.0" layoutY="100.0" text="Lieblingstipp" />
+      <Label layoutX="30.0" layoutY="130.0" text="Lieblings Superzahl" />
+      <Label layoutX="30.0" layoutY="160.0" text="Höchste Gewinnklasse" />
+      <Label layoutX="30.0" layoutY="190.0" text="Höchster Gewinn" />
+      <Label layoutX="30.0" layoutY="220.0" text="Gewinn gesammt" />
+      <Label layoutX="286.0" layoutY="14.0" text="Privat" />
+      <Label layoutX="423.0" layoutY="14.0" text="Global" />
+      <Label fx:id="lowestMostPickedNumberPrivateLabel" layoutX="286.0" layoutY="42.0" text="Label" />
+      <Label fx:id="lowestMostPickedNumberGlobalLabel" layoutX="427.0" layoutY="42.0" text="Label" />
+      <Label fx:id="highestMostPickedNumberPrivateLabel" layoutX="287.0" layoutY="70.0" text="Label" />
+      <Label fx:id="highestMostPickedNumberGlobalLabel" layoutX="427.0" layoutY="70.0" text="Label" />
+      <Label fx:id="favoritTippPrivateLabel" layoutX="286.0" layoutY="100.0" text="Label" />
+      <Label fx:id="favoritTippGlobalLabel" layoutX="427.0" layoutY="100.0" text="Label" />
+      <Label fx:id="favoritBonusnumberPrivateLabel" layoutX="286.0" layoutY="130.0" text="Label" />
+      <Label fx:id="favoritBonusnumberGlobalLabel" layoutX="427.0" layoutY="130.0" text="Label" />
+      <Label fx:id="highestWinnerClassPrivateLabel" layoutX="286.0" layoutY="160.0" text="Label" />
+      <Label fx:id="highestWinnerClassGlobalLabel" layoutX="427.0" layoutY="160.0" text="Label" />
+      <Label fx:id="highestWinnPrivateLabel" layoutX="286.0" layoutY="190.0" text="Label" />
+      <Label fx:id="totalMoneyWonGlobalLabel" layoutX="427.0" layoutY="190.0" text="Label" />
+      <Label fx:id="totalMoneyWonPrivateLabel" layoutX="286.0" layoutY="220.0" text="Label" />
+      <Label fx:id="totalMoneyWonGlobalLabel" layoutX="427.0" layoutY="220.0" text="Label" />
+   </children>
+</AnchorPane>

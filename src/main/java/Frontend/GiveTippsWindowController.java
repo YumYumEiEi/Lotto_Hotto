@@ -245,4 +245,8 @@ public class GiveTippsWindowController {
             }
         }
     }
+
+    public void addBackButtonHandler(GiveTippsWindow.BackButtonHandler backButtonHandler) {
+        this.backButton.setOnMouseClicked(backButtonHandler);
+    }
 }

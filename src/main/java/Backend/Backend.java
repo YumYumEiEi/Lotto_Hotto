@@ -22,4 +22,11 @@ public interface Backend {
 
     TippTableView[] getAllTippsFromUser(String id);
 
+    void deleteUser(User testUser);
+
+    void deleteAllTippsFrom(User user);
+
+    void saveDrawing(Drawing drawing);
+
+    void deleteDrawing(String id);
 }

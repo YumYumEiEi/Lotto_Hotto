@@ -53,7 +53,11 @@ public class MainWindow extends Application implements MainFrontend {
 
         @Override
         public void handle(Event event) {
-            mediator.startStatistics();
+            try {
+                mediator.startStatistics();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import Backend.Backend;
 import BackendObjects.*;
 import Middlewear.WinnChecker;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TestBackend implements Backend {
@@ -13,19 +14,6 @@ public class TestBackend implements Backend {
     private ArrayList<Drawing> allDrawings = new ArrayList<>();
 
     public TestBackend(){
-        initializeUsers();
-    }
-
-    private void initializeUsers() {
-        allUsers.add(new User ("0", "Herr",  "Peter",
-                "Kalinzki", "1234wasd", "Berlin", "07.08.1994", "3",
-                "false", "Goselstraße 33", "12345", "Peter"));
-
-        allTipps.add(new Tipp(new String[]{"1","2","3","4","5","6"}, "1", "0", "0"));
-        allTipps.add(new Tipp(new String[]{"2","3","4","5","6","7"}, "1", "0", "1"));
-
-        allDrawings.add(new Drawing("0", new String[]{"1", "3", "5", "17", "35", "40"}, "2", "11.11.1111"));
-        allDrawings.add(new Drawing("1", new String[]{}, "", "12.11.1111"));
     }
 
     @Override
@@ -55,7 +43,27 @@ public class TestBackend implements Backend {
 
     @Override
     public Drawing getNextDrawing() {
-        return new Drawing("1", new String[]{}, "", "12.11.1111");
+        for(Drawing drawing : allDrawings){
+            if(drawing.getBonusNumber().equals("")){
+                return drawing;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void saveDrawing(Drawing drawing){
+        this.allDrawings.add(drawing);
+    }
+
+    @Override
+    public void deleteDrawing(String id) {
+        for(Drawing drawing : allDrawings){
+            if(drawing.getId().equals(id)){
+                allDrawings.remove(drawing);
+                break;
+            }
+        }
     }
 
     @Override
@@ -86,6 +94,24 @@ public class TestBackend implements Backend {
         return allFoundTipps.toArray(new TippTableView[allFoundTipps.size()]);
     }
 
+    @Override
+    public void deleteUser(User userThatShouldBeDeleted) {
+        allUsers.remove(userThatShouldBeDeleted);
+    }
+
+    @Override
+    public void deleteAllTippsFrom(User user) {
+        ArrayList<Tipp> userTipps = new ArrayList<>();
+        for(Tipp tipp : allTipps){
+            if(tipp.getUserID().equals(user.getId())){
+                userTipps.add(tipp);
+            }
+        }
+        for (Tipp tipp : userTipps){
+            allTipps.remove(tipp);
+        }
+    }
+
     private TippTableView createTippTableView(Tipp tipp) {
         for(Drawing drawing : allDrawings){
             if (drawing.getId() == tipp.getDrawID()){
@@ -107,7 +133,7 @@ public class TestBackend implements Backend {
             allTippedNumbersInOneString = allTippedNumbersInOneString + number + ", ";
         }
 
-        return allTippedNumbersInOneString.substring(0, allTippedNumbersInOneString.length() - 3);
+        return allTippedNumbersInOneString.substring(0, allTippedNumbersInOneString.length() - 2);
     }
 
 }
