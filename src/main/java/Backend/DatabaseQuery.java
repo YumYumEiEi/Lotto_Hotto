@@ -47,7 +47,6 @@ public class DatabaseQuery implements Backend {
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, user.getUsername());
-            System.out.println(user.getUsername());
             ps.setString(2, user.getTitle());
             ps.setString(3, user.getFirstName());
             ps.setString(4, user.getLastName());
@@ -58,6 +57,38 @@ public class DatabaseQuery implements Backend {
             ps.setString(9, user.getCity());
             ps.setString(10, user.getBankAccount());
             ps.setString(11, user.getIsAdmin());
+
+            ps.executeUpdate();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void saveNewUserWithId(User user) {
+
+        String sql = "INSERT INTO PERSON(id, username, title, firstname, lastname, password, birthdate, street, postcode, city, bankaccount, isAdmin)" +
+                "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        PreparedStatement ps = null;
+        Connection connection = DatabaseConnection.getConnection();
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, user.getId());
+            ps.setString(2, user.getUsername());
+            ps.setString(3, user.getTitle());
+            ps.setString(4, user.getFirstName());
+            ps.setString(5, user.getLastName());
+            ps.setString(6, user.getPassword());
+            ps.setString(7, user.getBirthdate());
+            ps.setString(8, user.getStreet());
+            ps.setString(9, user.getPostcode());
+            ps.setString(10, user.getCity());
+            ps.setString(11, user.getBankAccount());
+            ps.setString(12, user.getIsAdmin());
 
             ps.executeUpdate();
             connection.close();
@@ -83,7 +114,6 @@ public class DatabaseQuery implements Backend {
             connection.close();
             if(rs.next()){
 
-                System.out.println("TEST");
                 return false;
             }
 
@@ -91,7 +121,6 @@ public class DatabaseQuery implements Backend {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("FALSCH");
         return true;
     }
 
@@ -133,6 +162,7 @@ public class DatabaseQuery implements Backend {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public boolean isTippAlreaddyGiven(Tipp givenTipp, String userID) {
@@ -184,6 +214,105 @@ public class DatabaseQuery implements Backend {
         allTips = ttv.toArray(allTips);
 
         return allTips;
+    }
+
+    @Override
+    public void deleteUser(User user){
+
+        String sql = "DELETE FROM Person WHERE id=?";
+
+        PreparedStatement ps = null;
+        Connection connection = DatabaseConnection.getConnection();
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, user.getId());
+            ps.executeUpdate();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void deleteAllTippsFrom(User user){
+        String sql = "DELETE FROM Tipp WHERE person_id=?";
+
+        PreparedStatement ps = null;
+        Connection connection = DatabaseConnection.getConnection();
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, user.getId());
+            ps.executeUpdate();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @Override
+    public void saveDrawing(Drawing drawing){
+
+        String sql = "INSERT INTO Drawing(numbers, bonusNumber, drawDate, )" +
+                "VALUES(?,?,?,)";
+        PreparedStatement ps = null;
+        Connection connection = DatabaseConnection.getConnection();
+        Arrays.sort(drawing.getNumbers());
+        String numbers = String.join(",", drawing.getNumbers());
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1,numbers);
+            ps.setString(2, drawing.getBonusNumber());
+            ps.setString(3, drawing.getDrawDate());
+            ps.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void saveDrawingWithId(Drawing drawing){
+
+        String sql = "INSERT INTO Drawing(id, numbers, bonusNumber, drawDate, )" +
+                "VALUES(?,?,?,?,)";
+        PreparedStatement ps = null;
+        Connection connection = DatabaseConnection.getConnection();
+        Arrays.sort(drawing.getNumbers());
+        String numbers = String.join(",", drawing.getNumbers());
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1,drawing.getId());
+            ps.setString(2,numbers);
+            ps.setString(3, drawing.getBonusNumber());
+            ps.setString(4, drawing.getDrawDate());
+            ps.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void deleteDrawing(String id){
+        String sql = "DELETE FROM Ziehung WHERE person_id=?";
+
+        PreparedStatement ps = null;
+        Connection connection = DatabaseConnection.getConnection();
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.executeUpdate();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

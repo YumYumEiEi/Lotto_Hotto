@@ -10,11 +10,14 @@ public interface Backend {
 
     void saveNewUser(User user);
 
+    void saveNewUserWithId(User user);
+
     boolean isUsernameUnique(String username);
 
     Drawing getNextDrawing();
 
     void saveTipp(Tipp givenTipp);
+
 
     boolean isTippAlreaddyGiven(Tipp givenTipp, String userID);
 
@@ -27,6 +30,8 @@ public interface Backend {
     void deleteAllTippsFrom(User user);
 
     void saveDrawing(Drawing drawing);
+
+    void saveDrawingWithId(Drawing drawing);
 
     void deleteDrawing(String id);
 }
