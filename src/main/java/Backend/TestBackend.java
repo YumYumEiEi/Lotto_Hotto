@@ -112,6 +112,14 @@ public class TestBackend implements Backend {
         }
     }
 
+    @Override
+    public void saveNewUserWithId(User user){}
+
+    @Override
+    public void saveDrawingWithId(Drawing drawing){}
+
+
+
     private TippTableView createTippTableView(Tipp tipp) {
         for(Drawing drawing : allDrawings){
             if (drawing.getId() == tipp.getDrawID()){
